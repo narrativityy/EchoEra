@@ -11,4 +11,7 @@ app.use(express.json(), express.urlencoded({ extended: true }), cors());
 const AllMyUserRoutes = require("./routes/user-routes");
 AllMyUserRoutes(app);
 
+const AllMyPlaylistRoutes = require("./routes/playlist-routes")
+AllMyPlaylistRoutes(app)
+
 app.listen(port, () => console.log(`Listening on port: ${port}`) );
