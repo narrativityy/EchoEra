@@ -2,6 +2,7 @@ import './App.css';
 import {Routes, Route, Link, Navigate} from 'react-router-dom'
 import Home from './components/Home';
 import New from './components/New';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
 
       <Routes>
         {/* MAIN REDIRECT */}
-        <Route path="/" element={<Navigate to='/home' />} />
+        <Route path="/" element={<Navigate to='/login' />} />
+
+        {/* LOGIN */}
+        <Route path="/login" element={<Login />} />
 
         {/* HOME */}
         <Route path="/home" element={<Home />} />
