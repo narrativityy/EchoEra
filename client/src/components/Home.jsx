@@ -18,7 +18,7 @@ const Home = (props) => {
   return (
     <div className='d-flex justify-content-between align-items-center'>
       {/* POSTS */}
-      <div className='d-flex justify-content-center align-items-center flex-wrap my-5 mx-4'>
+      <div className='d-flex justify-content-center align-items-center flex-wrap my-5 mx-5'>
         {posts.map((elem) => {
           return (
             <div className='border p-3 rounded text-center' key={elem._id}>
