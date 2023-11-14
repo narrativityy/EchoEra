@@ -6,4 +6,7 @@ module.exports = app => {
     app.patch('/api/users/:id', UserController.updateExistingUser);
     app.post('/api/users', UserController.createNewUser);
     app.delete('/api/users/:id', UserController.deleteAnExistingUser);
+    app.post('/api/register', UserController.register);
+    app.post('/api/login', UserController.login);
+    app.post('/api/logout', UserController.logout)
 }
