@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const Home = (props) => {
 
-  const [user, setUser] = useState(props.user)
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const Home = (props) => {
         {posts.map((elem) => {
           return (
             <div className='border p-3 rounded text-center' key={elem._id}>
-              {user.username === elem.user.username ? <h5 className='border-bottom pb-2 px-2'>My Top 10</h5> : <h5 className='border-bottom pb-2 px-2'>{elem.user.username}'s Top 10</h5>}
+              {props.user.username === elem.user.username ? <h5 className='border-bottom pb-2 px-2'>My Top 10</h5> : <h5 className='border-bottom pb-2 px-2'>{elem.user.username}'s Top 10</h5>}
               <div className='pt-1'>
                 {elem.songs.map((song, i) => {
                   return <p key={i}>{i + 1}. {song}</p>

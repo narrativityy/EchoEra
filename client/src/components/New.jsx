@@ -8,7 +8,6 @@ const New = (props) => {
 
   const [errors, setErrors] = useState([])
   
-  const [user, setUser] = useState(props.user)
   const [songs, setSongs] = useState([])
   const [songName, setSongName] = useState('')
 
@@ -36,8 +35,8 @@ const New = (props) => {
     e.preventDefault()
 
     if (songs.length === 10) {
-      console.log(user)
-      axios.post('http://localhost:8001/api/playlists', {user, songs})
+      console.log(props.user)
+      axios.post('http://localhost:8001/api/playlists', {user: props.user, songs})
       .then(res => {
         console.log(res)
         navigate('/home')
