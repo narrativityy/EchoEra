@@ -6,6 +6,7 @@ import Home from './components/Home';
 import New from './components/New';
 import Login from './components/Login';
 import Register from './components/Register';
+import Profile from './components/Profile';
 
 function App() {
 
@@ -55,7 +56,7 @@ function App() {
         <div className="d-flex justify-content-center align-items-center">
           <Link to="/playlists/new" className='text-decoration-none'><h5 className="m-2 text-white">New</h5></Link>
           <Link to="/home" className='text-decoration-none'><h5 className="m-2 text-white">Home</h5></Link>
-          <Link to="%" className='text-decoration-none'><h5 className="m-2 text-white">{user.username}</h5></Link>
+          <Link to={`/users/${user._id}`} className='text-decoration-none'><h5 className="m-2 text-white">{user.username}</h5></Link>
           <button style={{background: 'none', border: 'none'}}><h5 onClick={logout} className="m-2 text-white">Logout</h5></button>
         </div>
       </div>
@@ -67,6 +68,9 @@ function App() {
 
         {/* CREATION */}
         <Route path="/playlists/new" element={<New user={user} />} />
+
+        {/* USER VIEW */}
+        <Route path="/users/:id" element={<Profile user={user} />} />
 
         {/* MAIN REDIRECT */}
         <Route path="*" element={<Navigate to='/home' />} />
