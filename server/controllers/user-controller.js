@@ -20,6 +20,19 @@ module.exports.findOneSingleUser = (req, res) => {
         .catch((err) => {
             res.json(err)
         });}
+
+module.exports.findUserWithJWT = (req, res) => {
+    const secret = process.env.SECRET_KEY
+    const _id = req.params.id
+    const decryptedId = jwt.verify(_id, secret)
+    User.findOne({_id: decryptedId.id})
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+}
  
 module.exports.createNewUser = (req, res) => {
     User.create(req.body)
@@ -98,7 +111,6 @@ module.exports.register = (req, res) => {
             .json({ msg: "success!", user: user });
     })
     .catch(err => {
-        console.log('this is an error')
         res.status(400).json(err);
     })
 }
