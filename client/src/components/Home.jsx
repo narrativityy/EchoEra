@@ -8,6 +8,7 @@ const Home = (props) => {
   useEffect(() => {
     axios.get('http://localhost:8001/api/playlists')
       .then(res => {
+        console.log(res)
         setPosts(res.data)
       })
       .catch(err => {

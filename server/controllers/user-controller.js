@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 const User = require('../models/user-model');
  
 module.exports.findAllUsers = (req, res) => {
@@ -51,6 +53,7 @@ module.exports.deleteAnExistingUser = (req, res) => {
         });}
 
 module.exports.login = async(req, res) => {
+    const secret = process.env.SECRET_KEY
     const user = await User.findOne({ email: req.body.email });
  
     if(user === null) {
@@ -81,6 +84,7 @@ module.exports.login = async(req, res) => {
 }
 
 module.exports.register = (req, res) => {
+    const secret = process.env.SECRET_KEY
     User.create(req.body)
     .then(user => {
         const userToken = jwt.sign({
