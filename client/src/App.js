@@ -1,4 +1,4 @@
-import './App.css';
+import {useState, useEffect} from 'react'
 import {Routes, Route, Link, Navigate, useNavigate, useLocation} from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -12,6 +12,20 @@ function App() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  const [id, setId] = useState('')
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    setId(Cookies.get('usertoken'))
+    axios.get(`http://localhost:8001/api/users/jwt/${id}`)
+      .then(res => {
+        setUser(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [id])
+
   const logout = () => {
     axios.post('http://localhost:8001/api/users/logout', {}, {withCredentials: true})
       .then(res => {
@@ -24,7 +38,7 @@ function App() {
   }
 
   return (
-    location.pathname === '/login' || document.cookie === '' ? 
+    document.cookie === '' ? 
     <Routes>
       {/* LOGIN */}
       <Route path="/login" element={<Login />} />
@@ -42,7 +56,7 @@ function App() {
         <div className="d-flex justify-content-center align-items-center">
           <Link to="/playlists/new" className='text-decoration-none'><h5 className="m-2 text-white">New</h5></Link>
           <Link to="/home" className='text-decoration-none'><h5 className="m-2 text-white">Home</h5></Link>
-          <Link to="%" className='text-decoration-none'><h5 className="m-2 text-white">Profile</h5></Link>
+          <Link to="%" className='text-decoration-none'><h5 className="m-2 text-white">{user.username}</h5></Link>
           <button style={{background: 'none', border: 'none'}}><h5 onClick={logout} className="m-2 text-white">Logout</h5></button>
         </div>
       </div>
@@ -50,10 +64,13 @@ function App() {
       <Routes>
 
         {/* HOME */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home user={user} />} />
 
         {/* CREATION */}
-        <Route path="/playlists/new" element={<New />} />
+        <Route path="/playlists/new" element={<New user={user} />} />
+
+        {/* MAIN REDIRECT */}
+        <Route path="*" element={<Navigate to='/home' />} />
 
       </Routes>
     </div>

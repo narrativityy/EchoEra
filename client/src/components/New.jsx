@@ -2,12 +2,13 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const New = () => {
+const New = (props) => {
 
   const navigate = useNavigate()
 
   const [errors, setErrors] = useState([])
   
+  const [user, setUser] = useState(props.user)
   const [songs, setSongs] = useState([])
   const [songName, setSongName] = useState('')
 
@@ -35,24 +36,16 @@ const New = () => {
     e.preventDefault()
 
     if (songs.length === 10) {
-      let user
-      axios.get('http://localhost:8001/api/users/654ed098ed8f67bc9c175bea')
-        .then(res => {
-          user = res.data
-          axios.post('http://localhost:8001/api/playlists', {user, songs})
-          .then(res => {
-            console.log(res)
-            navigate('/home')
-          })
-          .catch(err => {
-            console.log(err)
-            setErrors(err)
-          })
-        })
-        .catch(err => {
-          console.log(err)
-          setErrors(err)
-        })
+      console.log(user)
+      axios.post('http://localhost:8001/api/playlists', {user, songs})
+      .then(res => {
+        console.log(res)
+        navigate('/home')
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors(err)
+      })
     }
     else {
       setErrors(['You must have 10 songs'])
