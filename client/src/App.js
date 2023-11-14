@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Routes, Route, Link, Navigate, useNavigate, useLocation} from 'react-router-dom'
+import {Routes, Route, Link, Navigate, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Home from './components/Home';
@@ -9,7 +9,6 @@ import Register from './components/Register';
 
 function App() {
 
-  const location = useLocation()
   const navigate = useNavigate()
 
   const [id, setId] = useState('')
