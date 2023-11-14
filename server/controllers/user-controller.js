@@ -97,7 +97,10 @@ module.exports.register = (req, res) => {
             })
             .json({ msg: "success!", user: user });
     })
-    .catch(err => res.json(err));
+    .catch(err => {
+        console.log('this is an error')
+        res.status(400).json(err);
+    })
 }
 
 module.exports.logout = (req, res) => {

@@ -20,6 +20,7 @@ const Login = () => {
       })
       .catch(err => {
         console.log(err)
+        setErrors(['Invalid Credentials please try again'])
       })
   }
 
@@ -27,20 +28,27 @@ const Login = () => {
     <div className='d-flex justify-content-center align-items-center text-center my-3 mx-4'>
       <div>
         <h1>EchoEra</h1>
-        <form onSubmit={login}>
-          <div>
-            <label htmlFor="email">Email: </label>
-            <input onChange={(e) => setEmail(e.target.value)} type="text" name="email" id="email" value={email} />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input onChange={(e) => setPassword(e.target.value)} type="text" name="password" id="password" value={password} />
-          </div>
-          <button>Login</button>
+        <form onSubmit={login} className='my-4'>
+          <table>
+            <tbody className='text-end'>
+              <tr>
+                <td><label htmlFor="email">Email: </label></td>
+                <td className='p-1 px-2'><input onChange={(e) => setEmail(e.target.value)} type="text" name="email" id="email" value={email} /></td>
+              </tr>
+              <tr>
+                <td><label htmlFor="password">Password: </label></td>
+                <td className='p-1 px-2'><input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" value={password} /></td>
+              </tr>
+            </tbody>
+          </table>
+          <button className='btn btn-outline-light mt-3'>Login</button>
         </form>
         {errors.map((elem, i) => {
-          return <p key={i}>{elem}</p>
+          return <p className='text-danger' key={i}>{elem}</p>
         })}
+        <hr />
+        <h5>Need an account?</h5>
+        <button onClick={() => navigate('/register')} className='btn btn-outline-light my-3'>Register</button>
       </div>
     </div>
   )
