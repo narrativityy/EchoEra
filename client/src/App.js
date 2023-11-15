@@ -17,20 +17,23 @@ function App() {
   const [user, setUser] = useState({})
 
   useEffect(() => {
-    setId(Cookies.get('usertoken'))
-    axios.get(`http://localhost:8001/api/users/jwt/${id}`)
+    if (Cookies.get('usertoken') !== undefined) {
+      setId(Cookies.get('usertoken'))
+      axios.get(`http://localhost:8001/api/users/jwt/${id}`)
       .then(res => {
-        setUser(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [id])
+          setUser(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }, [navigate, id])
 
   const logout = () => {
     axios.post('http://localhost:8001/api/users/logout', {}, {withCredentials: true})
       .then(res => {
         console.log(res)
+        setUser(null)
         navigate('/login')
       })
       .catch(err => {
@@ -50,7 +53,7 @@ function App() {
       {/* MAIN REDIRECT */}
       <Route path="*" element={<Navigate to='/login' />} />
     </Routes> : 
-
+    user ?
     <div>
       <div className="d-flex justify-content-between align-items-center my-3 mx-4">
         <Link to="/home" className='text-decoration-none text-white'><h1>EchoEra</h1></Link>
@@ -65,7 +68,7 @@ function App() {
       <Routes>
 
         {/* HOME */}
-        <Route path="/home" element={<Home user={user} />} />
+        <Route path="/home" element={<Home user={user} />} onEnter={() => console.log('test')} />
 
         {/* CREATION */}
         <Route path="/playlists/new" element={<New user={user} />} />
@@ -80,7 +83,7 @@ function App() {
         <Route path="*" element={<Navigate to='/home' />} />
 
       </Routes>
-    </div>
+    </div> : <p>loading...</p>
   );
 }
 
