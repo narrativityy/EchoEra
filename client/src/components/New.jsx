@@ -10,13 +10,21 @@ const New = (props) => {
   
   const [songs, setSongs] = useState([])
   const [songName, setSongName] = useState('')
+  const [artist, setArtist] = useState('')
 
-  const addSong = (e) => {
+  const addSong = async(e) => {
     e.preventDefault()
 
     if (songs.length !== 10) {
-      setSongs([...songs, songName])
-      setSongName('')
+      axios.get(`http://localhost:8001/api/playlists/search/${songName}%20by%20${artist}`)
+        .then(res => {
+          setSongs([...songs, {name: songName, artist, youtubeURL: `https://www.youtube.com/watch?v=${res.data.items[0].id.videoId}`}])
+          setSongName('')
+          setArtist('')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
     else {
       setErrors(["You cannot add more than 10 songs"])
@@ -55,18 +63,28 @@ const New = (props) => {
     <div className='d-flex justify-content-center align-items-center text-center'>
       <div>
         {errors.map((elem, i) => {
-          return <p className='text-warning' key={i}>{elem}</p>
+          return <p className='text-danger' key={i}>{elem}</p>
         })}
         <form onSubmit={addSong}>
-          <label htmlFor="songName">Song Name: </label>
-          <input onChange={(e) => setSongName(e.target.value)} type="text" name="songName" id="songName" value={songName} />
+          <table>
+            <tbody>
+              <tr>
+                <td><label htmlFor="songName">Song Name: </label></td>
+                <td className='p-1 px-2'><input onChange={(e) => setSongName(e.target.value)} type="text" name="songName" id="songName" value={songName} /></td>
+              </tr>
+              <tr>
+                <td><label htmlFor="artist">Artist: </label></td>
+                <td className='p-1'><input onChange={(e) => setArtist(e.target.value)} type="text" name="artist" id="artist" value={artist} /></td>
+              </tr>
+            </tbody>
+          </table>
           <button>Add Song</button>
         </form>
         <p>Songs:</p>
         {songs.map((elem, i) => {
           return (
-          <div className='d-flex justify-content-center align-items-center'>
-            <p key={i} className='mx-3'>{elem}</p>
+          <div className='d-flex justify-content-center align-items-center' key={i}>
+            <a href={elem.youtubeURL} target="_blank" rel="noopener noreferrer"><p key={i} className='mx-3'>{elem.name} by {elem.artist}</p></a>
             <form onSubmit={remove}>
               <button value={i}>Remove</button>
             </form>

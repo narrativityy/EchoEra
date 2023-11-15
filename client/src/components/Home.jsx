@@ -17,16 +17,16 @@ const Home = (props) => {
   }, [])
 
   return (
-    <div className='d-flex justify-content-between align-items-center'>
+    <div className='d-flex justify-content-center align-items-center'>
       {/* POSTS */}
       <div className='d-flex justify-content-center align-items-center flex-wrap my-5 mx-5'>
         {posts.map((elem) => {
           return (
-            <div className='border p-3 rounded text-center' key={elem._id}>
+            <div className='border p-3 rounded text-center mx-3' key={elem._id}>
               {props.user.username === elem.user.username ? <h5 className='border-bottom pb-2 px-2'>My Top 10</h5> : <h5 className='border-bottom pb-2 px-2'>{elem.user.username}'s Top 10</h5>}
               <div className='pt-1'>
                 {elem.songs.map((song, i) => {
-                  return <p key={i}>{i + 1}. {song}</p>
+                  return <p key={i}>{i + 1}. {song.name} by {song.artist}</p>
                 })}
               </div>
             </div>
