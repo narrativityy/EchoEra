@@ -6,4 +6,5 @@ module.exports = app => {
     app.patch('/api/playlists/:id', PlaylistController.updateExistingPlaylist);
     app.post('/api/playlists', PlaylistController.createNewPlaylist);
     app.delete('/api/playlists/:id', PlaylistController.deleteAnExistingPlaylist);
+    app.get('/api/playlists/search/:query', PlaylistController.getYoutubeLink)
 }

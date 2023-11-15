@@ -1,4 +1,5 @@
 const Playlist = require('../models/playlist-model');
+const axios = require('axios')
  
 module.exports.findAllPlaylists = (req, res) => {
     Playlist.find()
@@ -48,4 +49,14 @@ module.exports.deleteAnExistingPlaylist = (req, res) => {
         })
         .catch((err) => {
             res.json(err)
+        });}
+
+module.exports.getYoutubeLink = (req, res) => {
+    const query = req.params.query
+    axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=AIzaSyDgHmpN1FF8F0Iw9jO9gyVgZiIxxt-meEg`)
+        .then(result => {
+            res.json(result.data)
+        })
+        .catch((err) => {
+            res.status(400).json(err)
         });}
