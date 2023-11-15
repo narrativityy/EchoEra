@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Home = (props) => {
 
@@ -26,7 +27,7 @@ const Home = (props) => {
               {props.user.username === elem.user.username ? <h5 className='border-bottom pb-2 px-2'>My Top 10</h5> : <h5 className='border-bottom pb-2 px-2'>{elem.user.username}'s Top 10</h5>}
               <div className='pt-1'>
                 {elem.songs.map((song, i) => {
-                  return <p key={i}>{i + 1}. {song.name} by {song.artist}</p>
+                  return <Link className='text-white' to={`/playlists/${elem._id}/songs/${i}`}><p key={i}>{i + 1}. {song.name} by {song.artist}</p></Link>
                 })}
               </div>
             </div>

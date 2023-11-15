@@ -18,7 +18,7 @@ const New = (props) => {
     if (songs.length !== 10) {
       axios.get(`http://localhost:8001/api/playlists/search/${songName}%20by%20${artist}`)
         .then(res => {
-          setSongs([...songs, {name: songName, artist, youtubeURL: `https://www.youtube.com/watch?v=${res.data.items[0].id.videoId}`}])
+          setSongs([...songs, {name: songName, artist, youtubeID: `${res.data.items[0].id.videoId}`}])
           setSongName('')
           setArtist('')
         })
@@ -84,7 +84,7 @@ const New = (props) => {
         {songs.map((elem, i) => {
           return (
           <div className='d-flex justify-content-center align-items-center' key={i}>
-            <a href={elem.youtubeURL} target="_blank" rel="noopener noreferrer"><p key={i} className='mx-3'>{elem.name} by {elem.artist}</p></a>
+            <a href={`https://www.youtube.com/watch?v=${elem.youtubeID}`} target="_blank" rel="noopener noreferrer"><p key={i} className='mx-3'>{elem.name} by {elem.artist}</p></a>
             <form onSubmit={remove}>
               <button value={i}>Remove</button>
             </form>
@@ -99,3 +99,25 @@ const New = (props) => {
 }
 
 export default New
+
+/* 
+1. Yosemite by Travis Scott
+
+2. Range Brothers by Baby Keem
+
+3. In A Mintue by Lil Baby
+
+4. Something in the Orange by Zach Bryan
+
+5. Burn, Burn, Burn by Zach Bryan
+
+6. First Person Shooter by Drake
+
+7. Slime You Out by Drake
+
+8. Overdue by Metro Boomin
+
+9. Low Life by Future
+
+10. Feel No Ways by Drake
+*/

@@ -7,6 +7,7 @@ import New from './components/New';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import Song from './components/Song';
 
 function App() {
 
@@ -71,6 +72,9 @@ function App() {
 
         {/* USER VIEW */}
         <Route path="/users/:id" element={<Profile user={user} />} />
+
+        {/* SONG VIEW */}
+        <Route path="/playlists/:id/songs/:index" element={<Song user={user} />} />
 
         {/* MAIN REDIRECT */}
         <Route path="*" element={<Navigate to='/home' />} />
