@@ -21,15 +21,13 @@ const Register = () => {
       return
     }
 
-    axios.post('http://localhost:8001/api/users/register', {username, email, password}, {withCredentials: true})
+    axios.post('http://localhost:8001/api/users/register', {username: username, email: email, password: password}, {withCredentials: true})
       .then(res => {
         console.log(res)
         navigate('/home')
       })
       .catch(err => {
-        err.response.data.errors.username ? setErrors([...errors, err.response.data.errors.username.message]) : setErrors([...errors])
-        err.response.data.errors.email ? setErrors([...errors, err.response.data.errors.email.message]) : setErrors([...errors])
-        err.response.data.errors.password ? setErrors([...errors, err.response.data.errors.password.message]) : setErrors([...errors])
+        console.log(err)
       })
   
   }
