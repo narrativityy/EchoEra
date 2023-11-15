@@ -20,11 +20,11 @@ const Song = () => {
 
   return (
     song ? 
-    <div className='d-flex justify-content-center align-items-center text-center'>
+    <div className='text-center'>
       <div>
         {console.log(song)}
         <h3>{song.name} by {song.artist}</h3>
-        <iframe className='mt-3' title='YouTube Video' width="420" height="315" src={`https://www.youtube.com/embed/${song.youtubeID}`}></iframe>
+        <iframe className='mt-3' title='YouTube Video' style={{width: '60%', aspectRatio: '16 / 9'}} src={`https://www.youtube.com/embed/${song.youtubeID}`}></iframe>
       </div>
     </div> :
     <div className='d-flex justify-content-center align-items-center text-center'>
